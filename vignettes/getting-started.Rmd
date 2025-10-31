@@ -1,0 +1,303 @@
+---
+title: "Getting Started with tradeengine"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with tradeengine}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+# Introduction
+
+Welcome to **tradeengine**, the backtesting engine for quantitative trading strategies in R! This vignette will walk you through the basics of creating, testing, and analyzing trading strategies using the TradingVerse framework.
+
+## Philosophy
+
+tradeengine follows the tidyverse philosophy:
+
+- **Pipe-friendly**: Use `|>` or `%>%` to chain operations
+- **Consistent API**: Predictable function names and parameters
+- **Tidy data**: Everything works with tibbles
+- **Flexible**: From simple to complex strategies
+
+## Installation
+
+```{r setup, eval=FALSE}
+# Install from GitHub
+devtools::install_github("tradingverse/tradeengine")
+```
+
+```{r load}
+library(tradeengine)
+library(dplyr)
+```
+
+# The market_tbl: Foundation of TradingVerse
+
+All tradeengine operations start with a `market_tbl` - a standardized tibble for financial time series data.
+
+## Creating Market Data
+
+### From scratch
+
+```{r create_market_tbl}
+# Create sample data
+prices <- market_tbl(
+  symbol = rep("AAPL", 10),
+  datetime = seq.POSIXt(as.POSIXct("2024-01-01"), by = "day", length.out = 10),
+  open = c(150, 151, 152, 151, 153, 154, 155, 154, 156, 157),
+  high = c(152, 153, 154, 153, 155, 156, 157, 156, 158, 159),
+  low = c(149, 150, 151, 150, 152, 153, 154, 153, 155, 156),
+  close = c(151, 152, 153, 152, 154, 155, 156, 155, 157, 158),
+  volume = c(1e6, 1.1e6, 1.2e6, 1.15e6, 1.3e6, 1.25e6, 1.4e6, 1.35e6, 1.5e6, 1.45e6)
+)
+
+print(prices)
+```
+
+### Using synthetic data
+
+For testing and learning, tradeengine provides a synthetic data generator:
+
+```{r synthetic_data}
+# Generate 1 year of realistic data
+synthetic <- generate_synthetic_data(
+  n_days = 252,
+  start_price = 100,
+  volatility = 0.20,  # 20% annual volatility
+  drift = 0.08,       # 8% annual return
+  symbol = "DEMO"
+)
+
+head(synthetic, 10)
+```
+
+# Building Your First Strategy
+
+## Simple Moving Average Crossover
+
+Let's build a classic SMA crossover strategy:
+
+```{r sma_strategy}
+# Add technical indicators
+strategy_data <- synthetic |>
+  mutate(
+    sma_20 = sma(close, 20),
+    sma_50 = sma(close, 50)
+  )
+
+# Define strategy rules
+strategy <- strategy_data |>
+  add_strategy(
+    name = "SMA_Crossover",
+    entry_rules = sma_20 > sma_50,   # Buy when fast crosses above slow
+    exit_rules = sma_20 < sma_50,    # Sell when fast crosses below slow
+    position_size = 1000,             # $1000 per trade
+    commission = 0.001,               # 0.1% commission
+    slippage = 0.0005                 # 0.05% slippage
+  )
+
+head(strategy, 10)
+```
+
+# Running a Backtest
+
+## Vectorized Backtesting
+
+The fastest method for signal-based strategies:
+
+```{r backtest_vectorized}
+results <- backtest(
+  strategy,
+  initial_capital = 10000,
+  method = "vectorized"
+)
+
+# View summary
+summary(results)
+```
+
+## Analyzing Results
+
+```{r analyze_results}
+# Equity curve
+head(results$equity_curve, 10)
+
+# Trade details
+if (nrow(results$trades) > 0) {
+  head(results$trades, 5)
+}
+
+# Key metrics
+cat("Final Equity: $", format(results$final_equity, big.mark = ","), "\n")
+cat("Total Return: ", round(results$total_return * 100, 2), "%\n")
+cat("Number of Trades: ", results$n_trades, "\n")
+```
+
+## Visualization
+
+```{r plot_results, eval=FALSE}
+# Plot equity curve
+plot(results)
+```
+
+# Advanced Features
+
+## Position Sizing Methods
+
+tradeengine supports multiple position sizing approaches:
+
+```{r position_sizing}
+# Fixed dollar amount
+calc_position_size("fixed", capital = 10000, price = 100, risk_per_trade = 0.02)
+
+# Percentage of equity
+calc_position_size("percent_equity", capital = 10000, price = 100, risk_per_trade = 0.05)
+
+# Volatility targeting
+calc_position_size(
+  "volatility_target", 
+  capital = 10000, 
+  price = 100,
+  volatility = 0.30,        # Asset volatility
+  target_volatility = 0.10  # Target portfolio volatility
+)
+```
+
+## Portfolio Management
+
+Create and backtest multi-asset portfolios:
+
+```{r portfolio, eval=FALSE}
+# Create a 60/40 stock/bond portfolio
+portfolio <- create_portfolio(
+  symbols = c("SPY", "TLT"),
+  weights = c(0.6, 0.4),
+  rebalance_frequency = "monthly",
+  initial_capital = 100000
+)
+
+# Backtest portfolio
+portfolio_results <- backtest(portfolio)
+```
+
+## Complex Strategy Rules
+
+You can create sophisticated multi-condition strategies:
+
+```{r complex_strategy, eval=FALSE}
+# Multi-indicator strategy
+complex_strategy <- synthetic |>
+  mutate(
+    sma_20 = sma(close, 20),
+    sma_50 = sma(close, 50),
+    returns = calc_returns_simple(close)
+  ) |>
+  add_strategy(
+    name = "Multi_Indicator",
+    entry_rules = (sma_20 > sma_50) & (returns > 0) & (volume > lag(volume)),
+    exit_rules = (sma_20 < sma_50) | (returns < -0.05),  # Exit or stop loss
+    position_size = 2000
+  )
+```
+
+# Best Practices
+
+## 1. Always Include Transaction Costs
+
+Real trading has costs. Always model them:
+
+```{r transaction_costs, eval=FALSE}
+strategy <- data |>
+  add_strategy(
+    entry_rules = ...,
+    exit_rules = ...,
+    commission = 0.001,  # 0.1% per trade
+    slippage = 0.0005    # 0.05% slippage
+  )
+```
+
+## 2. Use Realistic Position Sizing
+
+Don't risk your entire capital on one trade:
+
+```{r realistic_sizing, eval=FALSE}
+# Risk 2% of capital per trade
+position_size_func <- function(equity, price) {
+  risk_amount <- equity * 0.02
+  shares <- risk_amount / price
+  return(floor(shares))
+}
+```
+
+## 3. Validate Your Data
+
+Always check your market data:
+
+```{r validate, eval=FALSE}
+# Check for issues
+validate_market_tbl(prices)
+
+# Look for gaps
+summary(prices)
+```
+
+## 4. Start Simple, Then Iterate
+
+Begin with simple strategies and add complexity gradually:
+
+1. Single indicator (SMA)
+2. Two indicators (SMA crossover)
+3. Multiple conditions
+4. Position sizing rules
+5. Portfolio allocation
+
+# Next Steps
+
+- **Strategy Design**: Learn advanced strategy patterns
+- **Transaction Costs**: Understand slippage and market impact
+- **Portfolio Management**: Multi-asset backtesting
+- **Walk-Forward Analysis**: Out-of-sample testing
+
+# Integration with TradingVerse
+
+tradeengine is part of a larger ecosystem:
+
+```{r ecosystem, eval=FALSE}
+library(tradeio)        # Data acquisition
+library(tradefeatures)  # Technical indicators  
+library(tradeviz)       # Visualization
+library(trademetrics)   # Performance analytics
+
+# Complete workflow
+results <- fetch_prices("AAPL", from = "2023-01-01") |>  # tradeio
+  add_rsi(14) |>                                         # tradefeatures
+  add_strategy(entry = rsi < 30, exit = rsi > 70) |>    # tradeengine
+  backtest(initial_capital = 10000) |>                   # tradeengine
+  calc_sharpe() |>                                       # trademetrics
+  plot_equity_curve()                                    # tradeviz
+```
+
+# Disclaimer
+
+⚠️ **Important**: This software is for educational and research purposes only. Past performance does not guarantee future results. Always do your own due diligence before trading with real money.
+
+# Resources
+
+- [GitHub Repository](https://github.com/tradingverse/tradeengine)
+- [API Documentation](https://tradingverse.github.io/tradeengine)
+- [TradingVerse Homepage](https://tradingverse.org)
+- [Community Forum](https://discord.gg/tradingverse)
+
+---
+
+*Happy trading! 📈*
