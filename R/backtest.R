@@ -126,6 +126,7 @@ backtest_vectorized <- function(data,
         
         trades <- list()
         trade_count <- 0
+        open_trade <- NULL  # Track open position for complete trade recording
         
         # Main backtest loop
         for (i in 2:nrow(data)) {
@@ -141,8 +142,8 @@ backtest_vectorized <- function(data,
                 commission_rate <- data$commission[i]
                 slippage_rate <- data$slippage[i]
                 
-                # Check for exit signal
-                if (prev_position != 0 && exit_signal) {
+                # Check for exit signal (handle NA values)
+                if (prev_position != 0 && isTRUE(exit_signal)) {
                         # Close position
                         exit_price <- current_price * (1 - slippage_rate)
                         proceeds <- prev_position * exit_price
@@ -151,19 +152,28 @@ backtest_vectorized <- function(data,
                         cash[i] <- prev_cash + proceeds - commission_cost
                         position[i] <- 0
                         
-                        # Record trade
-                        trade_count <- trade_count + 1
-                        trades[[trade_count]] <- data.frame(
-                                trade_id = trade_count,
-                                symbol = data$symbol[i],
-                                exit_date = data$datetime[i],
-                                exit_price = exit_price,
-                                position = prev_position,
-                                pnl = proceeds - abs(prev_position * data$close[i-1]) - commission_cost,
-                                commission = commission_cost
-                        )
+                        # Record complete trade if we have entry info
+                        if (!is.null(open_trade)) {
+                                trade_count <- trade_count + 1
+                                pnl <- proceeds - (abs(prev_position) * open_trade$entry_price) - 
+                                       open_trade$entry_commission - commission_cost
+                                
+                                trades[[trade_count]] <- data.frame(
+                                        trade_id = trade_count,
+                                        symbol = data$symbol[i],
+                                        entry_date = open_trade$entry_date,
+                                        entry_price = open_trade$entry_price,
+                                        exit_date = data$datetime[i],
+                                        exit_price = exit_price,
+                                        position = prev_position,
+                                        pnl = pnl,
+                                        return_pct = pnl / (abs(prev_position) * open_trade$entry_price),
+                                        commission = open_trade$entry_commission + commission_cost
+                                )
+                                open_trade <- NULL
+                        }
                         
-                } else if (prev_position == 0 && entry_signal) {
+                } else if (prev_position == 0 && isTRUE(entry_signal)) {
                         # Enter new position
                         entry_price <- current_price * (1 + slippage_rate)
                         
@@ -183,15 +193,11 @@ backtest_vectorized <- function(data,
                                 cash[i] <- prev_cash - cost - commission_cost
                                 position[i] <- shares
                                 
-                                # Record trade entry
-                                trade_count <- trade_count + 1
-                                trades[[trade_count]] <- data.frame(
-                                        trade_id = trade_count,
-                                        symbol = data$symbol[i],
+                                # Store open trade info
+                                open_trade <- list(
                                         entry_date = data$datetime[i],
                                         entry_price = entry_price,
-                                        position = shares,
-                                        commission = commission_cost
+                                        entry_commission = commission_cost
                                 )
                         } else {
                                 # Not enough cash
