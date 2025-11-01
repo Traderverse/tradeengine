@@ -3,18 +3,23 @@ template:
   bootstrap: 5
   bootswatch: flatly
   bslib:
-    primary: "#0054a6"
-    
+    primary: '#0054a6'
 home:
-  title: "tradeengine • Backtesting Engine for R"
-  description: >
-    A powerful backtesting engine and portfolio simulation framework
-    for quantitative trading strategies in R.
-
+  title: tradeengine • Backtesting Engine for R
+  description: |
+    A powerful backtesting engine and portfolio simulation framework for quantitative trading strategies in R.
 navbar:
   structure:
-    left: [home, reference, articles, tutorials, news]
-    right: [search, github, twitter]
+    left:
+    - home
+    - reference
+    - articles
+    - tutorials
+    - news
+    right:
+    - search
+    - github
+    - twitter
   components:
     home:
       icon: fas fa-home fa-lg
@@ -27,7 +32,7 @@ navbar:
       menu:
       - text: Getting Started
         href: articles/getting-started.html
-      - text: -------
+      - text: '-------'
       - text: More articles
         href: articles/index.html
     news:
@@ -39,21 +44,42 @@ navbar:
     twitter:
       icon: fab fa-twitter fa-lg
       href: https://twitter.com/traderverse
-
 reference:
-- title: "All Functions"
-  desc: "Backtesting engine functions"
-
+- title: All Functions
+  desc: All functions in tradeengine
+  contents:
+  - add_strategy
+  - as_market_tbl
+  - backtest_event_driven
+  - backtest_vectorized
+  - backtest
+  - calc_position_size
+  - calc_returns_simple
+  - create_portfolio
+  - ema
+  - format_currency
+  - format_percentage
+  - freq_to_seconds
+  - generate_synthetic_data
+  - is_market_tbl
+  - market_tbl
+  - plot.backtest_results
+  - print.market_tbl
+  - rebalance_portfolio
+  - safe_divide
+  - simulate_orders
+  - sma
+  - summary.backtest_results
+  - validate_market_tbl
+  - validate_signals
 articles:
 - title: Getting Started
   navbar: ~
-  contents:
-  - getting-started
-
+  contents: getting-started
 footer:
   structure:
     left: developed_by
     right: built_with
   components:
-    developed_by: "Developed by the Traderverse team"
-    built_with: "Built with [pkgdown](https://pkgdown.r-lib.org/)"
+    developed_by: Developed by the Traderverse team
+    built_with: Built with [pkgdown](https://pkgdown.r-lib.org/)
