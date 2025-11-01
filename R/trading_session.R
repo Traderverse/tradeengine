@@ -9,6 +9,7 @@
 #' @param data Market data (market_tbl object)
 #' @param name Session name (default: auto-generated)
 #' @param description Session description (optional)
+#' @importFrom stats sd
 #'
 #' @return A trading_session object
 #' @export
