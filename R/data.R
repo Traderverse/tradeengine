@@ -53,7 +53,7 @@ generate_synthetic_data <- function(n_days = 252,
         
         # Generate close prices
         log_prices <- cumsum(c(log(start_price), returns))
-        close_prices <- exp(log_prices)
+        close_prices <- exp(log_prices)[1:n_days]  # Take only n_days prices
         
         # Generate OHLC from close
         # High is close + some random positive move
