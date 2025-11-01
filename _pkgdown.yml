@@ -43,32 +43,32 @@ navbar:
 reference:
 - title: "Core Backtesting Functions"
   desc: "Main functions for running backtests"
-- contents:
+  contents:
   - backtest
   - create_strategy
   - add_signal
   
 - title: "Portfolio Functions"
   desc: "Portfolio construction and management"
-- contents:
+  contents:
   - portfolio
   - rebalance
   - position_size
   
 - title: "Analysis Functions"
   desc: "Analyze backtest results"
-- contents:
+  contents:
   - analyze_results
   - summary.backtest
   
 - title: "Data Structures"
   desc: "Core data structures"
-- contents:
+  contents:
   - market_tbl
   
 - title: "Utilities"
   desc: "Helper functions"
-- contents:
+  contents:
   - starts_with("calc_")
 
 articles:
