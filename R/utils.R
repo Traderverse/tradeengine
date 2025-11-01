@@ -1,11 +1,3 @@
-#' TradingVerse Package Utilities
-#'
-#' Internal utility functions for the tradeengine package.
-#'
-#' @keywords internal
-#' @name utils
-
-
 #' Check if Package is Available
 #'
 #' @param pkg Character string of package name

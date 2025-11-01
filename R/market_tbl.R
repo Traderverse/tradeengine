@@ -211,7 +211,11 @@ validate_market_tbl <- function(data) {
         }
         
         # Check for negative prices or volumes
-        if (any(data$close < 0, na.rm = TRUE) || any(data$volume < 0, na.rm = TRUE)) {
+        if (any(data$open < 0, na.rm = TRUE) || 
+            any(data$high < 0, na.rm = TRUE) || 
+            any(data$low < 0, na.rm = TRUE) || 
+            any(data$close < 0, na.rm = TRUE) || 
+            any(data$volume < 0, na.rm = TRUE)) {
                 stop("Negative prices or volumes detected")
         }
         

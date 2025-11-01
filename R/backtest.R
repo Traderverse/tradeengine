@@ -369,6 +369,7 @@ summary.backtest_results <- function(object, ...) {
 #' @param x A `backtest_results` object
 #' @param ... Additional arguments
 #' @export
+#' @importFrom rlang .data
 plot.backtest_results <- function(x, ...) {
         
         if (!requireNamespace("ggplot2", quietly = TRUE)) {
@@ -376,7 +377,7 @@ plot.backtest_results <- function(x, ...) {
         }
         
         # Simple equity curve plot
-        ggplot2::ggplot(x$equity_curve, ggplot2::aes(x = datetime, y = equity)) +
+        ggplot2::ggplot(x$equity_curve, ggplot2::aes(x = .data$datetime, y = .data$equity)) +
                 ggplot2::geom_line(color = "#2E86AB", linewidth = 1) +
                 ggplot2::geom_hline(yintercept = x$config$initial_capital, 
                                    linetype = "dashed", color = "gray50") +

@@ -21,12 +21,11 @@ Depends:
 Imports:
     tibble (>= 3.1.0),
     dplyr (>= 1.0.0),
-    tidyr (>= 1.2.0),
     purrr (>= 1.0.0),
     lubridate (>= 1.9.0),
     rlang (>= 1.0.0),
     cli (>= 3.4.0),
-    glue (>= 1.6.0)
+    stats
 Suggests:
     testthat (>= 3.0.0),
     knitr,

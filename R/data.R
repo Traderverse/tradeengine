@@ -12,6 +12,7 @@
 #'
 #' @return A `market_tbl` object with synthetic data
 #' @export
+#' @importFrom stats rnorm
 #'
 #' @examples
 #' # Generate 1 year of data
