@@ -30,8 +30,10 @@ Suggests:
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
-    ggplot2
-VignetteBuilder: knitr
+    ggplot2,
+    tradeio,
+    tradefeatures,
+    tradeviz
 Remotes:
     Traderverse/tradeio,
     Traderverse/tradefeatures,
