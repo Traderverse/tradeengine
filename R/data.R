@@ -1,36 +1,3 @@
-#' Example Market Data for Testing
-#'
-#' Synthetic market data for examples and testing purposes. Contains 252 days 
-#' (one trading year) of OHLCV data for a fictional stock.
-#'
-#' @format A `market_tbl` tibble with 252 rows and 8 variables:
-#' \describe{
-#'   \item{symbol}{Character, stock symbol (always "DEMO")}
-#'   \item{datetime}{POSIXct, trading date}
-#'   \item{open}{Numeric, opening price}
-#'   \item{high}{Numeric, high price of the day}
-#'   \item{low}{Numeric, low price of the day}
-#'   \item{close}{Numeric, closing price}
-#'   \item{volume}{Numeric, trading volume}
-#'   \item{adjusted}{Numeric, adjusted closing price (same as close for this synthetic data)}
-#' }
-#'
-#' @examples
-#' data(example_data)
-#' head(example_data)
-#' 
-#' # Use in a simple strategy
-#' library(dplyr)
-#' results <- example_data |>
-#'   mutate(sma_20 = sma(close, 20)) |>
-#'   add_strategy(
-#'     entry_rules = close > sma_20,
-#'     exit_rules = close < sma_20
-#'   ) |>
-#'   backtest(initial_capital = 10000)
-"example_data"
-
-
 #' Generate Synthetic Market Data
 #'
 #' Creates synthetic OHLCV market data using geometric Brownian motion for 
