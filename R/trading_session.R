@@ -409,7 +409,7 @@ summary.trading_session <- function(object, ...) {
 #' Plot Method for Trading Session
 #'
 #' @param x A trading_session object
-#' @param type Plot type: "equity", "drawdown", "returns", "trades", or "all"
+#' @param type Plot type: "equity", "drawdown", "returns", or "all"
 #' @param ... Additional arguments passed to plotting functions
 #' @export
 plot.trading_session <- function(x, type = "equity", ...) {
@@ -422,7 +422,7 @@ plot.trading_session <- function(x, type = "equity", ...) {
     stop("tradeviz package required. Install with: devtools::install_github('Traderverse/tradeviz')")
   }
   
-  type <- match.arg(type, c("equity", "drawdown", "returns", "trades", "all"))
+  type <- match.arg(type, c("equity", "drawdown", "returns", "all"))
   
   if (type == "equity") {
     tradeviz::plot_equity_curve(x$backtest, title = paste("Equity Curve -", x$name), ...)
@@ -432,13 +432,6 @@ plot.trading_session <- function(x, type = "equity", ...) {
     
   } else if (type == "returns") {
     tradeviz::plot_returns_distribution(x$backtest, title = paste("Returns -", x$name), ...)
-    
-  } else if (type == "trades") {
-    if (nrow(x$backtest$trades) > 0) {
-      tradeviz::plot_trades(x$data, x$backtest$trades, ...)
-    } else {
-      message("No trades to plot")
-    }
     
   } else if (type == "all") {
     # Create multi-panel plot

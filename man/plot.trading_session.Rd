@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{A trading_session object}
 
-\item{type}{Plot type: "equity", "drawdown", "returns", "trades", or "all"}
+\item{type}{Plot type: "equity", "drawdown", "returns", or "all"}
 
 \item{...}{Additional arguments passed to plotting functions}
 }

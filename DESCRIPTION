@@ -33,7 +33,9 @@ Suggests:
     ggplot2,
     tradeio,
     tradefeatures,
-    tradeviz
+    tradeviz,
+    tradedash,
+    patchwork
 Remotes:
     Traderverse/tradeio,
     Traderverse/tradefeatures,
