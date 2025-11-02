@@ -45,33 +45,65 @@ navbar:
       icon: fab fa-twitter fa-lg
       href: https://twitter.com/traderverse
 reference:
-- title: All Functions
-  desc: All functions in tradeengine
+- title: Unified Workflow
+  desc: High-level workflow for complete trading analysis
   contents:
-  - add_strategy
-  - as_market_tbl
-  - backtest_event_driven
-  - backtest_vectorized
+  - trading_session
+  - add_features.trading_session
+  - add_strategy.trading_session
+  - run_backtest.trading_session
+  - print.trading_session
+  - summary.trading_session
+  - plot.trading_session
+  - dashboard
+
+- title: Backtesting Functions
+  desc: Core backtesting and portfolio simulation
+  contents:
   - backtest
-  - calc_position_size
-  - calc_returns_simple
+  - backtest_vectorized
+  - backtest_event_driven
+  - add_strategy
+  - validate_signals
+  - simulate_orders
+
+- title: Data and Market Objects
+  desc: Market data structures and validation
+  contents:
+  - market_tbl
+  - as_market_tbl
+  - is_market_tbl
+  - validate_market_tbl
+  - print.market_tbl
+
+- title: Portfolio Management
+  desc: Portfolio construction and rebalancing
+  contents:
   - create_portfolio
+  - rebalance_portfolio
+  - calc_position_size
+
+- title: Results and Visualization
+  desc: Display and analyze backtest results
+  contents:
+  - plot.backtest_results
+  - summary.backtest_results
+
+- title: Technical Indicators
+  desc: Built-in technical analysis functions
+  contents:
+  - sma
   - ema
+
+- title: Utility Functions
+  desc: Helper functions for calculations
+  contents:
+  - calc_returns_simple
   - format_currency
   - format_percentage
   - freq_to_seconds
-  - generate_synthetic_data
-  - is_market_tbl
-  - market_tbl
-  - plot.backtest_results
-  - print.market_tbl
-  - rebalance_portfolio
   - safe_divide
-  - simulate_orders
-  - sma
-  - summary.backtest_results
-  - validate_market_tbl
-  - validate_signals
+  - generate_synthetic_data
 articles:
 - title: Getting Started
   navbar: ~
