@@ -34,19 +34,11 @@ jobs:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
       
-      
-      - name: Install Traderverse dependencies from GitHub
-        run: |
-          install.packages("remotes")
-          remotes::install_github("Traderverse/tradedash", upgrade = "never")
-          remotes::install_github("Traderverse/tradeio", upgrade = "never")
-          remotes::install_github("Traderverse/tradefeatures", upgrade = "never")
-          remotes::install_github("Traderverse/tradeviz", upgrade = "never")
-        shell: Rscript {0}
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
           needs: check
+          dependencies: '"hard"'
       
       - uses: r-lib/actions/check-r-package@v2
         with:

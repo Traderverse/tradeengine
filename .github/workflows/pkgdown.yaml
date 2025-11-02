@@ -30,19 +30,11 @@ jobs:
         with:
           use-public-rspm: true
 
-
-      - name: Install Traderverse dependencies from GitHub
-        run: |
-          install.packages("remotes")
-          remotes::install_github("Traderverse/tradedash", upgrade = "never")
-          remotes::install_github("Traderverse/tradeio", upgrade = "never")
-          remotes::install_github("Traderverse/tradefeatures", upgrade = "never")
-          remotes::install_github("Traderverse/tradeviz", upgrade = "never")
-        shell: Rscript {0}
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::pkgdown, local::.
           needs: website
+          dependencies: '"hard"'
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)

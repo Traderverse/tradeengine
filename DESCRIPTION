@@ -36,10 +36,5 @@ Suggests:
     tradeviz,
     tradedash,
     patchwork
-Remotes:
-    Traderverse/tradeio,
-    Traderverse/tradefeatures,
-    Traderverse/tradeviz,
-    Traderverse/trademetrics
 URL: https://github.com/tradingverse/tradeengine
 BugReports: https://github.com/tradingverse/tradeengine/issues
