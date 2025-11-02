@@ -40,9 +40,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All Functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="unified-workflow">Unified Workflow<a class="anchor" aria-label="anchor" href="#unified-workflow"></a></h2>
 
-      <div class="section-desc"><p>All functions in tradeengine</p></div>
+      <div class="section-desc"><p>High-level workflow for complete trading analysis</p></div>
 
 
     </div><div class="section level2">
@@ -52,22 +52,69 @@
 
       <dl><dt>
 
-          <code><a href="add_strategy.html">add_strategy()</a></code>
+          <code><a href="trading_session.html">trading_session()</a></code>
 
         </dt>
-        <dd>Add Trading Strategy to Market Data</dd>
+        <dd>Create Trading Session Object</dd>
       </dl><dl><dt>
 
-          <code><a href="as_market_tbl.html">as_market_tbl()</a></code>
+          <code><a href="add_features.trading_session.html">add_features.trading_session()</a></code>
 
         </dt>
-        <dd>Convert to Market Data Tibble</dd>
+        <dd>Add Features to Trading Session</dd>
       </dl><dl><dt>
 
-          <code><a href="backtest_event_driven.html">backtest_event_driven()</a></code>
+          <code><a href="add_strategy.trading_session.html">add_strategy.trading_session()</a></code>
 
         </dt>
-        <dd>Event-Driven Backtesting Engine</dd>
+        <dd>Add Strategy to Trading Session</dd>
+      </dl><dl><dt>
+
+          <code><a href="run_backtest.trading_session.html">run_backtest.trading_session()</a></code>
+
+        </dt>
+        <dd>Run Backtest on Trading Session</dd>
+      </dl><dl><dt>
+
+          <code><a href="print.trading_session.html">print(<i>&lt;trading_session&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Print Method for Trading Session</dd>
+      </dl><dl><dt>
+
+          <code><a href="summary.trading_session.html">summary(<i>&lt;trading_session&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Summary Method for Trading Session</dd>
+      </dl><dl><dt>
+
+          <code><a href="plot.trading_session.html">plot(<i>&lt;trading_session&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Plot Method for Trading Session</dd>
+      </dl><dl><dt>
+
+          <code><a href="dashboard.html">dashboard()</a></code>
+
+        </dt>
+        <dd>Launch Dashboard for Trading Session</dd>
+      </dl></div><div class="section level2">
+      <h2 id="backtesting-functions">Backtesting Functions<a class="anchor" aria-label="anchor" href="#backtesting-functions"></a></h2>
+
+      <div class="section-desc"><p>Core backtesting and portfolio simulation</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="backtest.html">backtest()</a></code>
+
+        </dt>
+        <dd>Run Strategy Backtest</dd>
       </dl><dl><dt>
 
           <code><a href="backtest_vectorized.html">backtest_vectorized()</a></code>
@@ -76,23 +123,81 @@
         <dd>Vectorized Backtesting Engine</dd>
       </dl><dl><dt>
 
-          <code><a href="backtest.html">backtest()</a></code>
+          <code><a href="backtest_event_driven.html">backtest_event_driven()</a></code>
 
         </dt>
-        <dd>Run Strategy Backtest</dd>
+        <dd>Event-Driven Backtesting Engine</dd>
       </dl><dl><dt>
 
-          <code><a href="calc_position_size.html">calc_position_size()</a></code>
+          <code><a href="add_strategy.html">add_strategy()</a></code>
 
         </dt>
-        <dd>Calculate Position Size</dd>
+        <dd>Add Trading Strategy to Market Data</dd>
       </dl><dl><dt>
 
-          <code><a href="calc_returns_simple.html">calc_returns_simple()</a></code>
+          <code><a href="validate_signals.html">validate_signals()</a></code>
 
         </dt>
-        <dd>Calculate Returns</dd>
+        <dd>Validate Strategy Signals</dd>
       </dl><dl><dt>
+
+          <code><a href="simulate_orders.html">simulate_orders()</a></code>
+
+        </dt>
+        <dd>Simulate Order Execution</dd>
+      </dl></div><div class="section level2">
+      <h2 id="data-and-market-objects">Data and Market Objects<a class="anchor" aria-label="anchor" href="#data-and-market-objects"></a></h2>
+
+      <div class="section-desc"><p>Market data structures and validation</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="market_tbl.html">market_tbl()</a></code>
+
+        </dt>
+        <dd>Create a Market Data Tibble</dd>
+      </dl><dl><dt>
+
+          <code><a href="as_market_tbl.html">as_market_tbl()</a></code>
+
+        </dt>
+        <dd>Convert to Market Data Tibble</dd>
+      </dl><dl><dt>
+
+          <code><a href="is_market_tbl.html">is_market_tbl()</a></code>
+
+        </dt>
+        <dd>Check if Object is a Market Tibble</dd>
+      </dl><dl><dt>
+
+          <code><a href="validate_market_tbl.html">validate_market_tbl()</a></code>
+
+        </dt>
+        <dd>Validate Market Data Tibble</dd>
+      </dl><dl><dt>
+
+          <code><a href="print.market_tbl.html">print(<i>&lt;market_tbl&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Print Method for Market Tibble</dd>
+      </dl></div><div class="section level2">
+      <h2 id="portfolio-management">Portfolio Management<a class="anchor" aria-label="anchor" href="#portfolio-management"></a></h2>
+
+      <div class="section-desc"><p>Portfolio construction and rebalancing</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="create_portfolio.html">create_portfolio()</a></code>
 
@@ -100,10 +205,79 @@
         <dd>Create Trading Portfolio</dd>
       </dl><dl><dt>
 
+          <code><a href="rebalance_portfolio.html">rebalance_portfolio()</a></code>
+
+        </dt>
+        <dd>Rebalance Portfolio</dd>
+      </dl><dl><dt>
+
+          <code><a href="calc_position_size.html">calc_position_size()</a></code>
+
+        </dt>
+        <dd>Calculate Position Size</dd>
+      </dl></div><div class="section level2">
+      <h2 id="results-and-visualization">Results and Visualization<a class="anchor" aria-label="anchor" href="#results-and-visualization"></a></h2>
+
+      <div class="section-desc"><p>Display and analyze backtest results</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="plot.backtest_results.html">plot(<i>&lt;backtest_results&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Plot Method for Backtest Results</dd>
+      </dl><dl><dt>
+
+          <code><a href="summary.backtest_results.html">summary(<i>&lt;backtest_results&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Summary Method for Backtest Results</dd>
+      </dl></div><div class="section level2">
+      <h2 id="technical-indicators">Technical Indicators<a class="anchor" aria-label="anchor" href="#technical-indicators"></a></h2>
+
+      <div class="section-desc"><p>Built-in technical analysis functions</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="sma.html">sma()</a></code>
+
+        </dt>
+        <dd>Calculate Simple Moving Average</dd>
+      </dl><dl><dt>
+
           <code><a href="ema.html">ema()</a></code>
 
         </dt>
         <dd>Calculate Exponential Moving Average</dd>
+      </dl></div><div class="section level2">
+      <h2 id="utility-functions">Utility Functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a></h2>
+
+      <div class="section-desc"><p>Helper functions for calculations</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="calc_returns_simple.html">calc_returns_simple()</a></code>
+
+        </dt>
+        <dd>Calculate Returns</dd>
       </dl><dl><dt>
 
           <code><a href="format_currency.html">format_currency()</a></code>
@@ -124,78 +298,19 @@
         <dd>Convert Frequency String to Seconds</dd>
       </dl><dl><dt>
 
-          <code><a href="generate_synthetic_data.html">generate_synthetic_data()</a></code>
-
-        </dt>
-        <dd>Generate Synthetic Market Data</dd>
-      </dl><dl><dt>
-
-          <code><a href="is_market_tbl.html">is_market_tbl()</a></code>
-
-        </dt>
-        <dd>Check if Object is a Market Tibble</dd>
-      </dl><dl><dt>
-
-          <code><a href="market_tbl.html">market_tbl()</a></code>
-
-        </dt>
-        <dd>Create a Market Data Tibble</dd>
-      </dl><dl><dt>
-
-          <code><a href="plot.backtest_results.html">plot(<i>&lt;backtest_results&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Plot Method for Backtest Results</dd>
-      </dl><dl><dt>
-
-          <code><a href="print.market_tbl.html">print(<i>&lt;market_tbl&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Print Method for Market Tibble</dd>
-      </dl><dl><dt>
-
-          <code><a href="rebalance_portfolio.html">rebalance_portfolio()</a></code>
-
-        </dt>
-        <dd>Rebalance Portfolio</dd>
-      </dl><dl><dt>
-
           <code><a href="safe_divide.html">safe_divide()</a></code>
 
         </dt>
         <dd>Safe Division</dd>
       </dl><dl><dt>
 
-          <code><a href="simulate_orders.html">simulate_orders()</a></code>
+          <code><a href="generate_synthetic_data.html">generate_synthetic_data()</a></code>
 
         </dt>
-        <dd>Simulate Order Execution</dd>
-      </dl><dl><dt>
-
-          <code><a href="sma.html">sma()</a></code>
-
-        </dt>
-        <dd>Calculate Simple Moving Average</dd>
-      </dl><dl><dt>
-
-          <code><a href="summary.backtest_results.html">summary(<i>&lt;backtest_results&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Summary Method for Backtest Results</dd>
-      </dl><dl><dt>
-
-          <code><a href="validate_market_tbl.html">validate_market_tbl()</a></code>
-
-        </dt>
-        <dd>Validate Market Data Tibble</dd>
-      </dl><dl><dt>
-
-          <code><a href="validate_signals.html">validate_signals()</a></code>
-
-        </dt>
-        <dd>Validate Strategy Signals</dd>
+        <dd>Generate Synthetic Market Data</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
