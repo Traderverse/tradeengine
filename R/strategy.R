@@ -63,6 +63,11 @@ add_strategy <- function(data,
                         slippage = slippage
                 )
         
+        # Preserve market_tbl class
+        if (!"market_tbl" %in% class(result)) {
+                class(result) <- c("market_tbl", class(result))
+        }
+        
         # Add stop loss and take profit if specified
         if (!is.null(stop_loss)) {
                 attr(result, "stop_loss") <- stop_loss
